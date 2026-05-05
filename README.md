@@ -1,0 +1,62 @@
+[New Text Document.txt](https://github.com/user-attachments/files/27389075/New.Text.Document.txt)
+# Online Banking System
+
+class Bank:
+    def __init__(self):
+        self.users = {
+            1: {"name": "Arun", "balance": 50000},
+            2: {"name": "Kumar", "balance": 30000}
+        }
+
+    def check_balance(self, user_id):
+        if user_id in self.users:
+            print("\n--- Account Details ---")
+            print("Name:", self.users[user_id]["name"])
+            print("Balance: ₹", self.users[user_id]["balance"])
+        else:
+            print("User not found")
+
+    def transfer_money(self, from_id, to_id, amount):
+        if from_id not in self.users or to_id not in self.users:
+            print("Invalid User ID")
+            return
+
+        if self.users[from_id]["balance"] < amount:
+            print("Insufficient Balance")
+            return
+
+        self.users[from_id]["balance"] -= amount
+        self.users[to_id]["balance"] += amount
+
+        print("\nTransfer Successful!")
+        print(self.users[from_id]["name"], "New Balance:", self.users[from_id]["balance"])
+        print(self.users[to_id]["name"], "New Balance:", self.users[to_id]["balance"])
+
+
+# Main Program
+bank = Bank()
+
+while True:
+    print("\n===== Online Banking System =====")
+    print("1. Check Balance")
+    print("2. Transfer Money")
+    print("3. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        uid = int(input("Enter User ID: "))
+        bank.check_balance(uid)
+
+    elif choice == 2:
+        from_id = int(input("From User ID: "))
+        to_id = int(input("To User ID: "))
+        amount = int(input("Enter amount: "))
+        bank.transfer_money(from_id, to_id, amount)
+
+    elif choice == 3:
+        print("Exiting... Thank you!")
+        break
+
+    else:
+        print("Invalid choice! Try again.")
